@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kontakt – Wiśniewski Media</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cherry: #C0112B;
+      --cherry-light: #E8293F;
+      --cherry-pale: #FFF0F2;
+      --cream: #FAFAF8;
+      --dark: #1A1A1A;
+      --mid: #555;
+      --light: #999;
+      --border: #E8E4E0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(26,26,26,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 900;
+      color: #fff; text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--cherry); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* tło dekoracyjne */
+    main::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(192,17,43,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-tag {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cherry-light); font-weight: 500;
+      margin-bottom: 1.2rem;
+      opacity: 0; animation: fadeUp .5s .1s forwards;
+    }
+
+    .contact-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 900; line-height: 1.05;
+      letter-spacing: -2px; text-align: center;
+      margin-bottom: 1.2rem;
+      opacity: 0; animation: fadeUp .6s .2s forwards;
+    }
+    .contact-title em { color: var(--cherry); font-style: normal; }
+
+    .contact-sub {
+      font-size: 1rem; font-weight: 300; line-height: 1.8;
+      color: rgba(255,255,255,0.45); text-align: center;
+      max-width: 480px; margin-bottom: 4rem;
+      opacity: 0; animation: fadeUp .6s .3s forwards;
+    }
+
+    /* ── KARTY ── */
+    .contact-cards {
+      display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;
+      width: 100%; max-width: 860px;
+      opacity: 0; animation: fadeUp .7s .45s forwards;
+    }
+
+    .contact-card {
+      flex: 1; min-width: 240px; max-width: 260px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      transition: background .3s, border-color .3s, transform .2s;
+      position: relative; overflow: hidden;
+    }
+    .contact-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--cherry);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s;
+    }
+    .contact-card:hover {
+      background: rgba(192,17,43,0.08);
+      border-color: rgba(192,17,43,0.3);
+      transform: translateY(-4px);
+    }
+    .contact-card:hover::before { transform: scaleX(1); }
+
+    .card-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(192,17,43,0.15);
+      border: 1px solid rgba(192,17,43,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.4rem;
+      font-size: 1.4rem;
+      transition: background .3s;
+    }
+    .contact-card:hover .card-icon {
+      background: rgba(192,17,43,0.25);
+    }
+
+    .card-label {
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 0.6rem;
+    }
+    .card-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem; font-weight: 700;
+      color: #fff; word-break: keep-all;
+      transition: color .2s;
+    }
+    .contact-card:hover .card-value { color: var(--cherry-light); }
+
+    .card-handle {
+      font-size: 0.82rem; font-weight: 400;
+      color: rgba(255,255,255,0.4); margin-top: 0.3rem;
+    }
+
+    /* ── SEPARATOR ── */
+    .separator {
+      display: flex; align-items: center; gap: 1.5rem;
+      width: 100%; max-width: 860px;
+      margin: 3.5rem 0;
+      opacity: 0; animation: fadeUp .6s .6s forwards;
+    }
+    .separator::before, .separator::after {
+      content: ''; flex: 1;
+      height: 1px; background: rgba(255,255,255,0.08);
+    }
+    .separator span {
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── DOSTĘPNOŚĆ ── */
+    .availability {
+      display: flex; align-items: center; gap: 0.8rem;
+      opacity: 0; animation: fadeUp .6s .7s forwards;
+    }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+      animation: blink 2s ease-in-out infinite;
+    }
+    .availability p {
+      font-size: 0.85rem; font-weight: 400;
+      color: rgba(255,255,255,0.4);
+    }
+    .availability strong { color: #22c55e; }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      position: fixed; bottom: 2.5rem; left: 4rem;
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: color .2s;
+    }
+    .back-link:hover { color: #fff; }
+    .back-link::before { content: '←'; transition: transform .2s; }
+    .back-link:hover::before { transform: translateX(-4px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: rgba(0,0,0,0.3);
+      padding: 1.5rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    footer .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 900; color: rgba(255,255,255,0.4);
+    }
+    footer .logo span { color: var(--cherry); }
+    footer p { font-size: 0.75rem; color: rgba(255,255,255,0.2); }
+
+    /* ── ANIMACJE ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      main { padding: 100px 1.5rem 5rem; }
+      .contact-cards { gap: 1rem; }
+      .contact-card { min-width: 100%; max-width: 100%; }
+      .back-link { left: 1.5rem; bottom: 2rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Wiśniewski<span>.</span>Media</a>
+    <ul class="nav-links">
+      <li><a href="index.html#uslugi">Usługi</a></li>
+      <li><a href="index.html#realizacje">Realizacje</a></li>
+      <li><a href="index.html#o-mnie">O mnie</a></li>
+      <li><a href="kontakt.html" class="active">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <span class="contact-tag">Kontakt</span>
+    <h1 class="contact-title">Masz projekt?<br>Napisz do <em>mnie.</em></h1>
+    <p class="contact-sub">Odpowiadam w ciągu 24 godzin. Chętnie porozmawiam o Twoim projekcie — bez zobowiązań.</p>
+
+    <div class="contact-cards">
+
+      <!-- EMAIL -->
+      <a href="mailto:swisniewski1999@gmail.com" class="contact-card">
+        <div class="card-icon">✉️</div>
+        <div class="card-label">Email</div>
+        <div class="card-value">swisniewski1999@gmail.com</div>
+      </a>
+
+      <!-- INSTAGRAM -->
+      <a href="https://www.instagram.com/wisniaswir/" target="_blank" rel="noopener" class="contact-card">
+        <div class="card-icon">📸</div>
+        <div class="card-label">Instagram</div>
+        <div class="card-value">@wisniaswir</div>
+        <div class="card-handle">instagram.com/wisniaswir</div>
+      </a>
+
+      <!-- TIKTOK -->
+      <a href="https://www.tiktok.com/@wisniaswir" target="_blank" rel="noopener" class="contact-card">
+        <div class="card-icon">🎵</div>
+        <div class="card-label">TikTok</div>
+        <div class="card-value">@wisniaswir</div>
+        <div class="card-handle">tiktok.com/@wisniaswir</div>
+      </a>
+
+    </div>
+
+    <div class="separator"><span>Dostępność</span></div>
+
+    <div class="availability">
+      <div class="dot"></div>
+      <p>Aktualnie <strong>dostępny</strong> do nowych projektów</p>
+    </div>
+  </main>
+
+  <a href="index.html" class="back-link">Wróć na stronę główną</a>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">Wiśniewski<span>.</span>Media</div>
+    <p>© 2024 Sebastian Wiśniewski. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+
+</body>
+</html>
